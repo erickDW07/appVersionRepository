@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const appVerdionSlice = createSlice({
     name: 'appVersionRepsitory',
     initialState: {
-        apps: [],
+        apps: [],      
         isLoading: false
     },
     reducers: {
@@ -12,14 +12,22 @@ export const appVerdionSlice = createSlice({
            
         },
         setApps: (state, action) =>{
-            state.apps = action.payload;
+            state.apps = action.payload;            
             state.isLoading = false;
-        },
+        },       
         addApp: (state, action) =>{
             state.apps.push(action.payload);
             state.isLoading = false;
-        }   
+        },
+        updateApp: (state, action) =>{
+            state.apps = state.apps.map((app)=>{
+                if(app.id == action.id)
+                   return action
+                return app;
+            });
+            state.isLoading = false;
+        }  
     }
 });
 
-export const {setApps, startLoadingApps, addApp} = appVerdionSlice.actions;
+export const {setApps, updateApp, startLoadingApps, addApp} = appVerdionSlice.actions;
